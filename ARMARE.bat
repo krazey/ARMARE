@@ -162,9 +162,9 @@ goto startserver
 set var=%choice:~0,-1%
 for /f "skip=3 tokens=2" %%p in ('call tasklist /fi "windowtitle eq %%server%var%windowtitle%%"') do (echo %PIDs% | find "%%p" > nul || if not defined PIDSERVER%var% set "PIDSERVER%var%=%%p")
 for /f "skip=3 tokens=2" %%p in ('call tasklist /fi "imagename eq %%bec%var%%%"') do (echo %PIDs% | find "%%p" > nul || if not defined PIDBEC%var% set "PIDBEC%var%=%%p")
-if defined PIDSERVER%var% echo useless > %checkfile%%var%
-if not defined PIDSERVER%var% cls
-if not defined PIDSERVER%var% echo %%server%var%%% not online! ..back to GUI
+cls
+if defined PIDSERVER%var% echo useless > %checkfile%%var% && echo checkfile created! ..back to GUI.
+if not defined PIDSERVER%var% echo %%server%var%%% not online! ..back to GUI.
 timeout /t 2 /nobreak > nul
 goto gui
 :://////////////////////////////////////////////////////////////////////////////////::
