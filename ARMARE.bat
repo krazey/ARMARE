@@ -33,8 +33,8 @@ set title=ARMARE
 echo wscript.sleep 50 >%appdata%\armare_sleep_50.vbs
 set "useless_0=echo\ && echo\ && echo\ && echo\ && echo\ && echo\ && echo\ && echo\"
 set "useless_1=                        "
-set "useless_2=____________________________²
-set "useless_3=%useless_1% ²²²²²²²²²²²²²²²²²²²²²²²²²²²²²
+set "useless_2=____________________________Â²
+set "useless_3=%useless_1% Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²Â²
 title %title% - %BATCHNAME%
 color F0
 mode con lines=28 cols=80
@@ -55,7 +55,7 @@ timeout /t 1 /nobreak > nul
 %useless_0%
 echo %useless_1% Processing config_new.ini...
 echo\
-echo %useless_1% ²___________________________²
+echo %useless_1% Â²___________________________Â²
 cscript /nologo %appdata%\armare_sleep_50.vbs
 set bar_0=26
 set bar_1=28
@@ -214,7 +214,7 @@ timeout /t 1 /nobreak > nul
 %useless_0%
 echo %useless_1% Loading...
 echo\
-echo %useless_1% ²___________________________²
+echo %useless_1% Â²___________________________Â²
 cscript /nologo %appdata%\armare_sleep_50.vbs
 set bar_0=26
 set bar_1=28
