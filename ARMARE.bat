@@ -399,7 +399,7 @@ exit
 :://///RESTARTING SCRIPT IF AUTO=Y//////////////////////////////////////////////////::
 :://////////////////////////////////////////////////////////////////////////////////::
 :restartarmare_0
-if %auto% NEQ Y set timer=1
+if %auto% NEQ Y set TIMERSTA=1
 if %auto% NEQ Y goto check
 :restartarmare_1
 del %appdata%\armare_sleep_50.vbs /q
