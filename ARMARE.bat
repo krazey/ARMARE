@@ -22,18 +22,11 @@
 ::----------------------------------------------------------------------------------::
 ::-----standard variables-----------------------------------------------------------::
 ::----------------------------------------------------------------------------------::
-set ARMA2=arma2oaserver.exe
-set STARTPATH=%cd%
-set BATCHNAME=%~n0%~x0
-set BECCOUNT=1
-set TIMERSTA=1
-set TIMEREND=10000
-set var=1
-set title=ARMARE
-echo wscript.sleep 50 >%appdata%\armare_sleep_50.vbs
+set "ARMA2=arma2oaserver.exe" && set "STARTPATH=%cd%" && set "BATCHNAME=%~n0%~x0"
+set "BECCOUNT=1" && set "TIMERSTA=1" && set "TIMEREND=10000" && set "var=1"
+set "title=ARMARE" && echo wscript.sleep 50 >%appdata%\armare_sleep_50.vbs
 set "useless_0=echo\ && echo\ && echo\ && echo\ && echo\ && echo\ && echo\ && echo\"
-set "useless_1=                        "
-set "useless_2=____________________________³
+set "useless_1=                    " && set "useless_2=----------------------------³
 set "useless_3=%useless_1% ³²²²²²²²²²²²²²²²²²²²²²²²²²²²³
 title %title% - %BATCHNAME%
 color F0
@@ -53,22 +46,22 @@ if exist config_new.ini for /f "delims=" %%x in (config_new.ini) do (set "%%x") 
 cls
 timeout /t 1 /nobreak > nul
 %useless_0%
-echo %useless_1% Processing config_new.ini...
-echo\
-echo %useless_1% ³___________________________³
-cscript /nologo %appdata%\armare_sleep_50.vbs
-set bar_0=26
-set bar_1=28
+echo %useless_1% Processing config_new.ini... && echo\
+echo %useless_1% ³---------------------------³   0%%
+timeout /t 1 /nobreak > nul
+set "bar_0=22" && set "bar_1=28" && set "bar_2=3" && set "a=   "
 :loading_0
 cls
-%useless_0%
-echo %useless_1% Processing config_new.ini...
-echo\
-call echo %%useless_3:~0,%bar_0%%%%%useless_2:~-%bar_1%,%bar_1%%%
+%useless_0% && echo %useless_1% Processing config_new.ini... && echo\
+if %bar_2% EQU 12 set "a=  "
+if %bar_2% EQU 100 set "a= "
+call echo %%useless_3:~0,%bar_0%%%%%useless_2:~-%bar_1%,%bar_1%%%%a%%bar_2%%%%%%
 cscript /nologo %appdata%\armare_sleep_50.vbs
-if %bar_0% EQU 54 goto loading_1
+if %bar_0% EQU 50 goto loading_1
 set /a bar_0=%bar_0%+1 > nul
 set /a bar_1=%bar_1%-1 > nul
+if %bar_0% LSS 38 set /a bar_2=%bar_2%+3 > nul
+if %bar_0% GEQ 38 set /a bar_2=%bar_2%+4 > nul
 goto loading_0
 :loading_1
 timeout /t 1 /nobreak > nul
@@ -212,22 +205,22 @@ timeout /t 2 /nobreak > nul
 cls
 timeout /t 1 /nobreak > nul
 %useless_0%
-echo %useless_1% Loading...
-echo\
-echo %useless_1% ³___________________________³
-cscript /nologo %appdata%\armare_sleep_50.vbs
-set bar_0=26
-set bar_1=28
+echo %useless_1% Loading... && echo\
+echo %useless_1% ³---------------------------³   0%%
+timeout /t 1 /nobreak > nul
+set "bar_0=22" && set "bar_1=28" && set "bar_2=3" && set "a=   "
 :loading_2
 cls
-%useless_0%
-echo %useless_1% Loading...
-echo\
-call echo %%useless_3:~0,%bar_0%%%%%useless_2:~-%bar_1%,%bar_1%%%
+%useless_0% && echo %useless_1% Loading... && echo\
+if %bar_2% EQU 12 set "a=  "
+if %bar_2% EQU 100 set "a= "
+call echo %%useless_3:~0,%bar_0%%%%%useless_2:~-%bar_1%,%bar_1%%%%a%%bar_2%%%%%%
 cscript /nologo %appdata%\armare_sleep_50.vbs
-if %bar_0% EQU 54 goto loading_3
+if %bar_0% EQU 50 goto loading_3
 set /a bar_0=%bar_0%+1 > nul
 set /a bar_1=%bar_1%-1 > nul
+if %bar_0% LSS 38 set /a bar_2=%bar_2%+3 > nul
+if %bar_0% GEQ 38 set /a bar_2=%bar_2%+4 > nul
 goto loading_2
 :loading_3
 timeout /t 2 /nobreak > nul
@@ -252,8 +245,7 @@ goto check
 :beccounter
 set var=1
 timeout /t 5 /nobreak > nul
-set /a BECCOUNT=%BECCOUNT%+1 > nul
-set /a TIMERSTA=%TIMERSTA%+1 > nul
+set /a "BECCOUNT=%BECCOUNT%+1" > nul && set /a "TIMERSTA=%TIMERSTA%+1" > nul
 title %title% - TIMER: %TIMERSTA% / %TIMEREND%
 if %BECCOUNT% EQU 10 goto beccheck
 goto check
@@ -353,8 +345,7 @@ goto check
 cls
 %useless_0%
 
-echo %useless_1% Do you wanna create "config_new.ini"?
-echo %useless_1% (Y)es / (N)o? && set /P config=
+echo %useless_1% Do you wanna create "config_new.ini"? && echo %useless_1% (Y)es / (N)o? && set /P config=
 if %config% EQU y goto configcreateY
 if %config% EQU Y goto configcreateY
 if %config% EQU n goto exitbatch
@@ -389,9 +380,7 @@ set /a var=%var%+1 > nul
 goto servervar
 :exitbatch
 cls
-%useless_0%
-echo %useless_1% config_new.ini created.
-echo %useless_1% Closing ARMARE now!
+%useless_0% && echo %useless_1% config_new.ini created. && echo %useless_1% Closing ARMARE now!
 del %appdata%\armare_sleep_50.vbs /q
 timeout /t 3 /nobreak > nul
 exit
