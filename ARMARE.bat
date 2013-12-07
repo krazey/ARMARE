@@ -30,27 +30,48 @@ set TIMERSTA=1
 set TIMEREND=10000
 set var=1
 set title=ARMARE
-title %title% - %~n0%~x0
+echo wscript.sleep 50 >%appdata%\armare_sleep_50.vbs
+set "useless_0=echo\ && echo\ && echo\ && echo\ && echo\ && echo\ && echo\ && echo\"
+set "useless_1=                        "
+set "useless_2=____________________________²
+set "useless_3=%useless_1% ²²²²²²²²²²²²²²²²²²²²²²²²²²²²²
+title %title% - %BATCHNAME%
 color F0
 mode con lines=28 cols=80
+::----------------------------------------------------------------------------------::
+::-----generate config_new.ini (if not exist)---------------------------------------::
+::----------------------------------------------------------------------------------::
+if not exist config_new.ini timeout /t 3 /nobreak > nul
+if not exist config_new.ini cls
+if not exist config_new.ini %useless_0% && echo %useless_1% Error: config_new.ini was not found!
+if not exist config_new.ini timeout /t 5 /nobreak > nul
+if not exist config_new.ini goto configcreate
 ::----------------------------------------------------------------------------------::
 ::-----"process" config_new.ini-----------------------------------------------------::
 ::----------------------------------------------------------------------------------::
 if exist config_new.ini for /f "delims=" %%x in (config_new.ini) do (set "%%x") > nul
 cls
 timeout /t 1 /nobreak > nul
-echo Processing config_new.ini...
-echo [][][][][][][][][]
-timeout /t 1 /nobreak > nul
+%useless_0%
+echo %useless_1% Processing config_new.ini...
+echo\
+echo %useless_1% ²___________________________²
+cscript /nologo %appdata%\armare_sleep_50.vbs
+set bar_0=26
+set bar_1=28
+:loading_0
 cls
-echo Processing config_new.ini...
-echo [][][][][][][][][][][][][][][][][][][][][][][][][][][]
+%useless_0%
+echo %useless_1% Processing config_new.ini...
+echo\
+call echo %%useless_3:~0,%bar_0%%%%%useless_2:~-%bar_1%,%bar_1%%%
+cscript /nologo %appdata%\armare_sleep_50.vbs
+if %bar_0% EQU 54 goto loading_1
+set /a bar_0=%bar_0%+1 > nul
+set /a bar_1=%bar_1%-1 > nul
+goto loading_0
+:loading_1
 timeout /t 1 /nobreak > nul
-cls
-echo Processing config_new.ini...
-echo [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-timeout /t 1 /nobreak > nul
-cls
 ::----------------------------------------------------------------------------------::
 ::-----detecting pid of this cmd-process--------------------------------------------::
 ::----------------------------------------------------------------------------------::
@@ -60,24 +81,20 @@ for /f "usebackq tokens=2" %%a in (`tasklist /FO list /FI "sessionname eq %sessi
 if not defined PID for /f "usebackq tokens=2" %%a in (`tasklist /FO list /FI "sessionname eq %sessionname%" /FI "username eq %username%" /FI "windowtitle eq Administrator:  %title%" ^| find /i "PID:"`) do set PID=%%a
 ::if not defined PID echo !Error: xyz.  Exit.& exit /b 1
 cls
-echo KRAZEY ARMARE initialized...
+%useless_0%
+echo %useless_1% KRAZEY ARMARE initialized...
 timeout /t 2 /nobreak > nul
 set title=%title% - PID: %PID% - START: %DATE% / %TIME:~0,8%
 title %title%
 cls
 timeout /t 1 /nobreak > nul
 ::----------------------------------------------------------------------------------::
-::-----generate config_new.ini (if not exist)---------------------------------------::
-::----------------------------------------------------------------------------------::
-if not exist config_new.ini timeout /t 3 /nobreak > nul
-if not exist config_new.ini cls
-if not exist config_new.ini echo Error: config_new.ini was not found!
-if not exist config_new.ini timeout /t 5 /nobreak > nul
-if not exist config_new.ini goto configcreate
-::----------------------------------------------------------------------------------::
-echo Script starts for the following number of servers: %servernum%
+%useless_0%
+echo %useless_1% Script starts for the following
+echo %useless_1% number of servers: %servernum%
 timeout /t 2 /nobreak > nul
-if '%auto%' NEQ 'Y' echo Starting UI/Main Menu... && timeout /t 1 /nobreak > nul
+echo\
+if '%auto%' NEQ 'Y' echo %useless_1% Starting UI/Main Menu... && timeout /t 1 /nobreak > nul
 cls
 ::----------------------------------------------------------------------------------::
 ::-----process checkfiles, skip UI if AUTO=Y----------------------------------------::
@@ -178,12 +195,12 @@ if %var% GTR %servernum% goto finisheddetectpid
 echo --------------------------------------------------------------------------------
 if not defined pidserver%var% for /f "skip=3 tokens=2" %%p in ('call tasklist /fi "windowtitle eq %%server%var%windowtitle%%"') do (echo %PIDs% | find "%%p" > nul || set "pidserver%var%=%%p")
 if defined pidserver%var% call echo %%server%var%%% - PID: %%pidserver%var%%%
-if defined pidserver%var% timeout /t 1 /nobreak > nul
+if defined pidserver%var% cscript /nologo %appdata%\armare_sleep_50.vbs
 if not defined pidbec%var% for /f "skip=3 tokens=2" %%p in ('call tasklist /fi "imagename eq %%bec%var%%%"') do (echo %PIDs% | find "%%p" > nul || set "pidbec%var%=%%p")
 if defined pidbec%var% call echo %%bec%var%%% - PID: %%pidbec%var%%%
 echo\
 echo --------------------------------------------------------------------------------
-timeout /t 1 /nobreak > nul
+cscript /nologo %appdata%\armare_sleep_50.vbs
 set /a var=%var%+1 > nul
 goto detectpid
 ::----------------------------------------------------------------------------------::
@@ -191,21 +208,33 @@ goto detectpid
 ::----------------------------------------------------------------------------------::
 :finisheddetectpid
 set var=1
-cls
-timeout /t 1 /nobreak > nul
-echo Loading...
-echo [][][][][][][][][]
-timeout /t 1 /nobreak > nul
-cls
-echo Loading...
-echo [][][][][][][][][][][][][][][][][][][][][][][][][][][]
-timeout /t 1 /nobreak > nul
-cls
-echo Loading...
-echo [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 timeout /t 2 /nobreak > nul
 cls
-echo PIDs detected. Initialize checkfiles...
+timeout /t 1 /nobreak > nul
+%useless_0%
+echo %useless_1% Loading...
+echo\
+echo %useless_1% ²___________________________²
+cscript /nologo %appdata%\armare_sleep_50.vbs
+set bar_0=26
+set bar_1=28
+:loading_2
+cls
+%useless_0%
+echo %useless_1% Loading...
+echo\
+call echo %%useless_3:~0,%bar_0%%%%%useless_2:~-%bar_1%,%bar_1%%%
+cscript /nologo %appdata%\armare_sleep_50.vbs
+if %bar_0% EQU 54 goto loading_3
+set /a bar_0=%bar_0%+1 > nul
+set /a bar_1=%bar_1%-1 > nul
+goto loading_2
+:loading_3
+timeout /t 2 /nobreak > nul
+cls
+%useless_0%
+echo %useless_1% PIDs detected.
+echo %useless_1% Initialize checkfiles...
 timeout /t 5 /nobreak > nul
 cls
 title %title% - TIMER: %TIMERSTA% / %TIMEREND%
@@ -322,8 +351,10 @@ goto check
 :://////////////////////////////////////////////////////////////////////////////////::
 :configcreate
 cls
-echo Do you wanna create "config_new.ini"?
-set /P config=(Y)es / (N)o? 
+%useless_0%
+
+echo %useless_1% Do you wanna create "config_new.ini"?
+echo %useless_1% (Y)es / (N)o? && set /P config=
 if %config% EQU y goto configcreateY
 if %config% EQU Y goto configcreateY
 if %config% EQU n goto exitbatch
@@ -331,7 +362,8 @@ if %config% EQU N goto exitbatch
 if '%config%' EQU '' goto exitbatch
 :configcreateY
 cls
-set /P numm=Enter the number of server: 
+%useless_0%
+echo %useless_1% Enter the number of server: && set /P numm=
 set var=1
 echo // config_new.ini - generated on %date% >> config_new.ini
 echo servernum=>> config_new.ini
@@ -357,7 +389,10 @@ set /a var=%var%+1 > nul
 goto servervar
 :exitbatch
 cls
-echo "config_new.ini" created. Closing ARMARE now!
+%useless_0%
+echo %useless_1% config_new.ini created.
+echo %useless_1% Closing ARMARE now!
+del %appdata%\armare_sleep_50.vbs /q
 timeout /t 3 /nobreak > nul
 exit
 :://////////////////////////////////////////////////////////////////////////////////::
@@ -367,6 +402,7 @@ exit
 if %auto% NEQ Y set timer=1
 if %auto% NEQ Y goto check
 :restartarmare_1
+del %appdata%\armare_sleep_50.vbs /q
 cd /d %STARTPATH%
 start /I "" %BATCHNAME%
 taskkill /f /pid %PID% > nul
