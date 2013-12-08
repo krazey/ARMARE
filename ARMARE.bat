@@ -1,6 +1,6 @@
 @echo off
 ::----------------------------------------------------------------------------------::
-:: ArmA + BEC | Automatic Server Restart Script v0.2 (07-Dec-2013)                  ::
+:: ArmA + Bec | Automatic Server Restart Script v0.2 (07-Dec-2013)                  ::
 ::                                                                                  ::
 :: - Autostart or UI-Mode (all settings can be changed via config)                  ::
 :: - Setting variables for each Process ID                                          ::
@@ -25,9 +25,9 @@
 set "ARMA2=arma2oaserver.exe" && set "STARTPATH=%cd%" && set "BATCHNAME=%~n0%~x0"
 set "BECCOUNT=1" && set "TIMERSTA=1" && set "TIMEREND=10000" && set "var=1"
 set "title=ARMARE" && echo wscript.sleep 50 >%appdata%\armare_sleep_50.vbs
-set "useless_0=echo\ && echo\ && echo\ && echo\ && echo\ && echo\ && echo\ && echo\"
+set "useless_0=echo\ && echo\ && echo\ && echo\"
 set "useless_1=                    " && set "useless_2=----------------------------³
-set "useless_3=%useless_1% ³²²²²²²²²²²²²²²²²²²²²²²²²²²²³
+set "useless_3=%useless_1% ³²²²²²²²²²²²²²²²²²²²²²²²²²²²³"
 title %title% - %BATCHNAME%
 color F0
 mode con lines=28 cols=80
@@ -58,8 +58,7 @@ if %bar_2% EQU 100 set "a= "
 call echo %%useless_3:~0,%bar_0%%%%%useless_2:~-%bar_1%,%bar_1%%%%a%%bar_2%%%%%%
 cscript /nologo %appdata%\armare_sleep_50.vbs
 if %bar_0% EQU 50 goto loading_1
-set /a bar_0=%bar_0%+1 > nul
-set /a bar_1=%bar_1%-1 > nul
+set /a "bar_0=%bar_0%+1" > nul && set /a "bar_1=%bar_1%-1" > nul
 if %bar_0% LSS 38 set /a bar_2=%bar_2%+3 > nul
 if %bar_0% GEQ 38 set /a bar_2=%bar_2%+4 > nul
 goto loading_0
@@ -184,51 +183,51 @@ goto startserver
 :://///DETECTING SERVER + BEC PIDS//////////////////////////////////////////////////::
 :://////////////////////////////////////////////////////////////////////////////////::
 :detectpid
-if %var% GTR %servernum% goto finisheddetectpid
-echo --------------------------------------------------------------------------------
+cls
+%useless_0%
+echo %useless_1% Detecting PIDs... && echo\
+echo %useless_1% ³---------------------------³   0%%
+::----------------------------------------------------------------------------------::
+if %var% GTR %servernum% goto preloading
 if not defined pidserver%var% for /f "skip=3 tokens=2" %%p in ('call tasklist /fi "windowtitle eq %%server%var%windowtitle%%"') do (echo %PIDs% | find "%%p" > nul || set "pidserver%var%=%%p")
-if defined pidserver%var% call echo %%server%var%%% - PID: %%pidserver%var%%%
-if defined pidserver%var% cscript /nologo %appdata%\armare_sleep_50.vbs
 if not defined pidbec%var% for /f "skip=3 tokens=2" %%p in ('call tasklist /fi "imagename eq %%bec%var%%%"') do (echo %PIDs% | find "%%p" > nul || set "pidbec%var%=%%p")
-if defined pidbec%var% call echo %%bec%var%%% - PID: %%pidbec%var%%%
-echo\
-echo --------------------------------------------------------------------------------
 cscript /nologo %appdata%\armare_sleep_50.vbs
 set /a var=%var%+1 > nul
 goto detectpid
-::----------------------------------------------------------------------------------::
-::-----fake detect, placeholder-----------------------------------------------------::
-::----------------------------------------------------------------------------------::
-:finisheddetectpid
+:preloading
 set var=1
-timeout /t 2 /nobreak > nul
-cls
-timeout /t 1 /nobreak > nul
-%useless_0%
-echo %useless_1% Loading... && echo\
-echo %useless_1% ³---------------------------³   0%%
-timeout /t 1 /nobreak > nul
+set loadbar_var=0
 set "bar_0=22" && set "bar_1=28" && set "bar_2=3" && set "a=   "
+timeout /t 1 /nobreak > nul
 :loading_2
 cls
-%useless_0% && echo %useless_1% Loading... && echo\
+if %bar_2% LSS 100 %useless_0% && echo %useless_1% Detecting PIDs... && echo\
+if %bar_2% EQU 100 %useless_0% && echo %useless_1% PIDs detected. Initialize checkfiles... && echo\
 if %bar_2% EQU 12 set "a=  "
 if %bar_2% EQU 100 set "a= "
 call echo %%useless_3:~0,%bar_0%%%%%useless_2:~-%bar_1%,%bar_1%%%%a%%bar_2%%%%%%
+echo\ && echo\
+if exist %appdata%\armaretemp.bat call %appdata%\armaretemp.bat
 cscript /nologo %appdata%\armare_sleep_50.vbs
-if %bar_0% EQU 50 goto loading_3
-set /a bar_0=%bar_0%+1 > nul
-set /a bar_1=%bar_1%-1 > nul
-if %bar_0% LSS 38 set /a bar_2=%bar_2%+3 > nul
-if %bar_0% GEQ 38 set /a bar_2=%bar_2%+4 > nul
+if %bar_2% EQU 100 if %var% GTR %servernum% goto loading_3
+if %bar_2% NEQ 100 set /a bar_0=%bar_0%+1 > nul
+if %bar_2% NEQ 100 set /a bar_1=%bar_1%-1 > nul
+if %bar_2% NEQ 100 if %bar_0% LSS 38 set /a bar_2=%bar_2%+3 > nul
+if %bar_2% NEQ 100 if %bar_0% GEQ 38 set /a bar_2=%bar_2%+4 > nul
+if %loadbar_var% EQU 4 if %var% LEQ %servernum% if defined pidserver%var% (
+call echo echo %useless_1% %%server%var%%%  	   [ PID ] : %%pidserver%var%%% >> %appdata%\armaretemp.bat) else (
+if defined server%var% call echo echo %useless_1% %%server%var%%%  	   [ PID ] : N/A >> %appdata%\armaretemp.bat)
+if %loadbar_var% EQU 4 if %var% LEQ %servernum% if defined pidbec%var% (
+call echo echo %useless_1% %%bec%var%%%  	   [ PID ] : %%pidbec%var%%% >> %appdata%\armaretemp.bat) else (
+if defined server%var% call echo echo %useless_1% %%bec%var%%%  	   [ PID ] : N/A >> %appdata%\armaretemp.bat)
+if %loadbar_var% EQU 4 if %var% LEQ %servernum% set /a var=%var%+1 > nul
+set /a loadbar_var=%loadbar_var%+1 > nul
+if %loadbar_var% EQU 5 set loadbar_var=0
 goto loading_2
 :loading_3
-timeout /t 2 /nobreak > nul
-cls
-%useless_0%
-echo %useless_1% PIDs detected.
-echo %useless_1% Initialize checkfiles...
-timeout /t 5 /nobreak > nul
+del %appdata%\armaretemp.bat /q
+set var=1
+timeout /t 4 /nobreak > nul
 cls
 title %title% - TIMER: %TIMERSTA% / %TIMEREND%
 echo --------------------------------------------------------------------------------
@@ -253,10 +252,7 @@ goto check
 ::-----bec-onlinecheck & check for hive error---------------------------------------::
 ::----------------------------------------------------------------------------------::
 :beccheck
-set BECCOUNT=1
-set HIVE_ERROR=
-set hivevar=
-set var=1
+set "BECCOUNT=1" && set "HIVE_ERROR=" && set "hivevar=" && set "var=1"
 if '%becONchecker%' EQU 'ON' goto process_beccheck
 goto check
 ::hive_error
@@ -282,20 +278,19 @@ goto process_beccheck
 ::----------------------------------------------------------------------------------::
 :becoff
 del %checkfile%%var% /q
-echo (!) BEC crashed or has been closed. %checkfile%%var% deleted!
-call echo (!) If %%server%var%%% not crashed, BEC will be restarted.
+echo (!) Bec crashed or has been closed. %checkfile%%var% deleted!
+call echo (!) If %%server%var%%% not crashed, Bec will be restarted.
 timeout /t 1 /nobreak > nul
 for /f "tokens=1* delims==" %%i in ('set pidserver%var%') do tasklist /fi "PID eq %%j" | findstr %%j > nul
-if %errorlevel% EQU 1 call echo (!) %%server%var%%% offline, restarting server + BEC && echo\ && goto startserver
+if %errorlevel% EQU 1 call echo (!) %%server%var%%% offline, restarting server + Bec && echo\ && goto startserver
 call echo (!) %%server%var%%% still online..
 echo useless > %checkfile%%var%
-call echo (!) Restarting BEC for %%server%var%%% && echo\
+call echo (!) Restarting Bec for %%server%var%%% && echo\
 call start /min "%becpath%" "%%bec%var%%%" -f %%server%var%beccfg%%
 timeout /t 1 /nobreak > nul
 for /f "skip=3 tokens=2" %%p in ('call tasklist /fi "imagename eq %%bec%var%%%"') do (echo %PIDs% | find "%%p" > nul || set "pidbec%var%=%%p")
-call echo %date% %time:~0,8%	BEC started with PID: %%pidbec%var%%%
-echo\
-echo --------------------------------------------------------------------------------
+call echo %date% %time:~0,8%	Bec started with PID: %%pidbec%var%%%
+echo\ && echo --------------------------------------------------------------------------------
 timeout /t 1 /nobreak > nul
 set BECCOUNT=1
 goto check
@@ -304,7 +299,7 @@ goto check
 :://////////////////////////////////////////////////////////////////////////////////::
 :startserver
 timeout /t 5 /nobreak > nul
-if defined pidserver%var% call echo %date% %time:~0,8%	Kill %%server%var%%% Server + BEC
+if defined pidserver%var% call echo %date% %time:~0,8%	Kill %%server%var%%% + Bec
 if defined pidserver%var% call taskkill /f /pid %%pidserver%var%%% > nul
 if defined pidbec%var% call taskkill /f /pid %%pidbec%var%%% > nul
 timeout /t 1 /nobreak > nul
@@ -320,18 +315,17 @@ timeout /t 1 /nobreak > nul
 for /f "skip=3 tokens=2" %%p in ('tasklist /fi "imagename eq %ARMA2%"') do (echo %PIDs% | find "%%p" > nul || if not defined pidserver%var% set "pidserver%var%=%%p")
 if defined pidserver%var% call echo %date% %time:~0,8%	%%server%var%%% started with PID: %%pidserver%var%%%
 timeout /t %timeoutRE% /nobreak > nul
-call echo %date% %time:~0,8%	Starting BEC for %%server%var%%% 
+call echo %date% %time:~0,8%	Starting Bec for %%server%var%%% 
 timeout /t 1 /nobreak > nul
 for /f "delims=" %%l in ('for /f "skip=3 tokens=2" %%p in ^('call tasklist /fi "imagename eq %%bec%var%%%"'^) do @^<nul set /p "=%%p "') do (set "PIDs=%%l")
 cd /d %becpath%
 call start /min "%becpath%" "%%bec%var%%%" -f %%server%var%beccfg%%
 timeout /t 1 /nobreak > nul
 for /f "skip=3 tokens=2" %%p in ('call tasklist /fi "imagename eq %%bec%var%%%"') do (echo %PIDs% | find "%%p" > nul || if not defined pidbec%var% set "pidbec%var%=%%p")
-if defined pidbec%var% call echo %date% %time:~0,8%	BEC started with PID: %%pidbec%var%%%
+if defined pidbec%var% call echo %date% %time:~0,8%	Bec started with PID: %%pidbec%var%%%
 timeout /t 1 /nobreak > nul
 echo useless > %checkfile%%var%
-echo\
-echo --------------------------------------------------------------------------------
+echo\ && echo --------------------------------------------------------------------------------
 if '%choice%' EQU '%var%' goto ui_0
 if '%choice%' EQU '%var%x' goto ui_0
 if '%hivevar%' EQU 'true' goto beccehck
