@@ -250,12 +250,16 @@ if %bar_2% NEQ 100 set /a bar_0=%bar_0%+1 > nul
 if %bar_2% NEQ 100 set /a bar_1=%bar_1%-1 > nul
 if %bar_2% NEQ 100 if %bar_0% LSS 38 set /a bar_2=%bar_2%+3 > nul
 if %bar_2% NEQ 100 if %bar_0% GEQ 38 set /a bar_2=%bar_2%+4 > nul
+::----------------------------------------------------------------------------------::
 if %loadbar_var% EQU 2 if %var% LEQ %servernum% if defined pidserver%var% (
 call echo echo %useless_1% %%server%var%%%  	   [ PID ] : %%pidserver%var%%% >> %appdata%\armaretemp.bat) else (
 if defined server%var% call echo echo %useless_1% %%server%var%%%  	   [ PID ] : N/A >> %appdata%\armaretemp.bat)
 if %loadbar_var% EQU 5 if %var% LEQ %servernum% if defined pidbec%var% (
 call echo echo %useless_1% %%bec%var%%%  	   [ PID ] : %%pidbec%var%%% >> %appdata%\armaretemp.bat) else (
 if defined server%var% call echo echo %useless_1% %%bec%var%%%  	   [ PID ] : N/A >> %appdata%\armaretemp.bat)
+::----------------------------------------------------------------------------------::
+if %auto% EQU Y if defined server%var% if not defined pidserver%var% if not defined pidbec%var% del %checkfile%%var% /q
+::----------------------------------------------------------------------------------::
 if %loadbar_var% EQU 5 if %var% LEQ %servernum% set /a var=%var%+1 > nul
 set /a loadbar_var=%loadbar_var%+1 > nul
 if %loadbar_var% EQU 6 set loadbar_var=0
@@ -340,9 +344,9 @@ ver > nul
 if %var% GTR %servernum% set precheck=true
 if '%precheck%' EQU 'true' set var=1
 if '%precheck%' EQU 'true' goto check
+if not defined pidbec%var% goto becoff
 for /f "tokens=1* delims==" %%i in ('set pidbec%var%') do tasklist /fi "PID eq %%j" | findstr %%j > nul
 if %errorlevel% EQU 1 goto becoff
-if not defined pidbec%var% goto becoff
 timeout /t 2 /nobreak > nul
 set /a var=%var%+1 > nul
 goto process_beccheck
@@ -355,6 +359,7 @@ del %checkfile%%var% /q
 echo (!) Bec crashed or has been closed. %checkfile%%var% deleted!
 call echo (!) If %%server%var%%% not crashed, Bec will be restarted.
 timeout /t 1 /nobreak > nul
+if not defined pidserver%var% call echo (!) %%server%var%%% offline, restarting server + Bec && echo\ && goto startserver
 for /f "tokens=1* delims==" %%i in ('set pidserver%var%') do tasklist /fi "PID eq %%j" | findstr %%j > nul
 if %errorlevel% EQU 1 call echo (!) %%server%var%%% offline, restarting server + Bec && echo\ && goto startserver
 call echo (!) %%server%var%%% still online..
