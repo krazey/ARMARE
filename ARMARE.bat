@@ -5,9 +5,9 @@
 :: - Autostart or UI-Mode (all settings can be changed via config)                  ::
 :: - Setting variables for each Process ID                                          ::
 :: - Generating config.ini                                                          ::
-:: - Restarting itself (auto=Y or N)                                                ::
+:: - Works fully automatically and restarting itself (auto=Y or N)                  ::
 :: - Can be closed at anytime                                                       ::
-:: - (Each step can be logged)                                                      ::
+:: - Each step can be logged                                                        ::
 ::                                                                                  ::
 :: Tested on: Windows 2008 R2 Standard Edition                                      ::
 :: with: ArmA 2 OA v1.62 106400 & Bec v1.496                                        ::
