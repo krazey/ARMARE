@@ -1,11 +1,11 @@
 @echo off
 ::----------------------------------------------------------------------------------::
-:: ArmA + Bec | Automatic Server Restart Script v0.2 (07-Dec-2013)                  ::
+:: ArmA + Bec | Automatic Server Restart Script v0.3 (07-Dec-2013)                  ::
 ::                                                                                  ::
 :: - Autostart or UI-Mode (all settings can be changed via config)                  ::
 :: - Setting variables for each Process ID                                          ::
-:: - Generating config.ini                                                          ::
-:: - Works fully automatically and restarting itself (auto=Y or N)                  ::
+:: - Generates config.ini                                                           ::
+:: - Works full automatic and restarts itself (auto=Y or N)                         ::
 :: - Can be closed at anytime                                                       ::
 :: - Each step can be logged                                                        ::
 ::                                                                                  ::
